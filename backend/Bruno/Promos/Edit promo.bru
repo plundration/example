@@ -1,0 +1,73 @@
+meta {
+  name: Edit promo
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{BASE_URL}}/promos/9a9fff6d-2e86-4953-99f0-706e4eb4f778
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "code": "PROMO",
+      "discountPercent": 20,
+      "enabled": true
+  }
+  
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Updates promo with **id specified in path** and sends back updated entity.
+  
+  ## Authorization
+  
+  **Role required**: modify-all
+  
+  ## Request
+  
+  Promo id is specified route parameter.
+  
+  ### Body
+  
+  ```
+  {
+      code: z.string().min(1),
+      discountPercent: z.coerce.number().int().positive(),
+      enabled: z.boolean(),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Errors
+  
+  - 400 - Zod validation error
+  - 404 - Promo not found
+  - 500 - Internal server error
+  
+  ```json
+  {
+      "message": "... specific error"
+  }
+  ```
+  
+  ### Data
+  
+  Sends back the updated promo.
+  
+  ```json
+  {
+      "id": "df125f93-cd8d-4fa6-be9e-4f32961c2178",
+      "code": "PROMO",
+      "discountPercent": 20,
+      "enabled": true,
+      "createdAt": "2024-09-27T15:03:02.857Z",
+      "eventId": 1605
+  }
+  ```
+}

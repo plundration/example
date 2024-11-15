@@ -1,0 +1,27 @@
+meta {
+  name: Set user role
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL}}/admin/setRole
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "matouinhell@gmail.com",
+    "role": "admin"
+  }
+}
+
+docs {
+  ```
+  {
+      email: z.string().email(),
+      role: z.enum(['admin', 'manager', 'scanner', '']),
+  }
+  ```
+}

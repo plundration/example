@@ -1,0 +1,95 @@
+meta {
+  name: Create promo
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/promos
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "eventId": 1505,
+      "code": "PROMO",
+      "discountPercent": 30,
+      "enabled": true
+  }
+  
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Creates promo and sends back created entity.
+  
+  ## Authorization
+  
+  **Role required**: modify-all
+  
+  ## Request
+  
+  ### Body
+  
+  ```
+  {
+      eventId: z.coerce.number().int().positive(),
+      code: z.string().min(1),
+      discountPercent: z.coerce.number().int().positive(),
+      enabled: z.boolean().default(true),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Errors
+  
+  - 400: Zod validation error
+  - 500: Internal server error
+  
+  ```json
+  {
+      "message": "... specific error"
+  }
+  ```
+  
+  ### Data
+  
+  Sends back the created promo.
+  
+  ```json
+  {
+    "eventId": 1605,
+    "code": "PROMO",
+    "discountPercent": 30,
+    "enabled": true,
+    "event": {
+      "id": 1605,
+      "name": "Newest Event",
+      "date": "2024-09-27T16:01:33.565Z",
+      "description": "This event is going to be the bomb, there are going to be so many people, you will have a great time!",
+      "address": "123 Fake St",
+      "ticketTypes": [
+        {
+          "name": "Basic",
+          "price": 1000,
+          "capacity": 100,
+          "soldOut": false,
+          "details": [
+            "Wow so good",
+            "You can stand around",
+            "You can dance"
+          ]
+        }
+      ],
+      "sellingOpen": true,
+      "soldOut": false,
+      "galleryEnabled": false
+    },
+    "id": "df125f93-cd8d-4fa6-be9e-4f32961c2178",
+    "createdAt": "2024-09-27T15:03:02.857Z"
+  }
+  ```
+}

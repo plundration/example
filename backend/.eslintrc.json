@@ -1,0 +1,16 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": ["no-relative-import-paths"],
+    "rules": {
+        "prettier/prettier": "error",
+        "no-relative-import-paths/no-relative-import-paths": [
+            "error",
+            { "rootDir": "src", "prefix": "@" }
+        ]
+    }
+}

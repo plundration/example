@@ -1,0 +1,89 @@
+meta {
+  name: List events
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/events
+  body: none
+  auth: none
+}
+
+params:query {
+  ~soldOut: false
+  ~galleryEnabled: true
+  ~dateMin: 2024-07-08T08:31:20.106Z
+  ~dateMax: 2024-07-09T08:31:20.106Z
+  ~name: lol
+  ~ticketsMin: 2
+  ~ticketsMax: 100
+  ~orderBy: price
+  ~order: ASC
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Returns a list of events that match specified criteria.
+  
+  ## Authorization
+  
+  **Role required**: read-all
+  
+  ## Request
+  
+  Query parameters (optional):
+  
+  ```
+  {
+      name: z.string(),
+      dateMin: z.string().datetime(),
+      dateMax: z.string().datetime(),
+      ticketsMin: z.coerce.number().int().positive(),
+      ticketsMax: z.coerce.number().int().positive(),
+      soldOut: z.enum(['true', 'false']).transform((v) => v === 'true'),
+      sellingOpen: z.enum(['true', 'false']).transform((v) => v === 'true'),
+      galleryEnabled: z.enum(['true', 'false']).transform((v) => v === 'true'),
+      orderBy: z.enum(['name', 'date', 'capacity', 'price', 'tickets']).default('date'),
+      order: z.enum(['ASC', 'DESC']).default('ASC'),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Error
+  
+  - 400:  Zod validation error
+  - 500:  Internal server error
+  
+  ### Success
+  
+  ```json
+  [
+      {
+          "id": 10,
+          "name": "Newest Event",
+          "date": "2024-09-01T07:00:06.460Z",
+          "description": "This event is going to be the bomb, there are going to be so many people, you will have a great time!",
+          "ticketTypes": [
+              {
+                  "name": "Basic",
+                  "price": 1000,
+                  "capacity": 100,
+                  "soldOut": false,
+                  "details": [
+                      "Wow so good",
+                      "You can stand around",
+                      "You can dance"
+                  ]
+              }
+          ],
+          "sellingOpen": true,
+          "soldOut": false,
+          "galleryEnabled": false,
+          "ticketCount": 1
+      },
+  ]
+  ```
+}

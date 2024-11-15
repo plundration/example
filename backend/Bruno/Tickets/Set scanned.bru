@@ -1,0 +1,68 @@
+meta {
+  name: Set scanned
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{BASE_URL}}/tickets/c78c331e-cfef-404b-a27e-adbfe3674e0f
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "scanned": false
+  }
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Updates ticket 'scanned' status, may be used to re-enable tickets.
+  
+  ## Authorization
+  
+  **Role required**: unscan
+  
+  ## Request
+  
+  Ticket id is specified route parameter.
+  
+  ### Body
+  
+  ```
+  {
+      scanned: z.boolean(),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Errors
+  
+  - 400 - Zod validation error
+  - 404 - Promo not found
+  - 500 - Internal server error
+  
+  ```json
+  {
+      "message": "... specific error"
+  }
+  ```
+  
+  ### Data
+  
+  Sends back the updated ticket.
+  
+  ```json
+  {
+      "id": "df125f93-cd8d-4fa6-be9e-4f32961c2178",
+      "code": "PROMO",
+      "discountPercent": 20,
+      "enabled": true,
+      "createdAt": "2024-09-27T15:03:02.857Z",
+      "eventId": 1605
+  }
+  ```
+}

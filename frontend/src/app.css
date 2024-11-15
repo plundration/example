@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 240 10% 3.9%;
+
+		--muted: 240 4.8% 95.9%;
+		--muted-foreground: 240 3.8% 46.1%;
+
+		--popover: 0 0% 100%;
+		--popover-foreground: 240 10% 3.9%;
+
+		--card: 0 0% 100%;
+		--card-foreground: 240 10% 3.9%;
+
+		--border: 240 5.9% 90%;
+		--input: 240 5.9% 90%;
+
+		/* --primary: 0 0% 0%; */
+		--primary: 324 72% 48%;
+		--primary-foreground: 0 0% 98%;
+
+		--secondary: 240 4.8% 95.9%;
+		--secondary-foreground: 240 2.8% 36.1%;
+		/* --secondary: 240 4.8% 95.9%; */
+		/* --secondary-foreground: 240 5.9% 10%; */
+
+		--accent: 240 4.8% 95.9%;
+		--accent-foreground: 240 5.9% 10%;
+
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 0 0% 98%;
+
+		--ring: 240 5% 64.9%;
+
+		--radius: 0.75rem;
+	}
+
+	.dark {
+		--background: 230 30% 5%;
+		--foreground: 220 15% 95%;
+
+		--muted: 225 30% 9%;
+		--muted-foreground: 240 5% 64.9%;
+
+		--popover: 240 10% 3.9%;
+		--popover-foreground: 0 0% 98%;
+
+		--card: 223 30% 14%;
+		--card-foreground: 220 5% 93%;
+
+		--border: 240 3.7% 15.9%;
+		--input: 240 3.7% 15.9%;
+
+		--primary: 328 65% 53%;
+		--primary-foreground: 0 0% 98%;
+
+		--secondary: 220 28% 25%;
+		--secondary-foreground: 220 5% 95%;
+
+		--accent: 240 3.7% 15.9%;
+		--accent-foreground: 0 0% 98%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 0 85.7% 97.3%;
+
+		--ring: 240 3.7% 15.9%;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+
+	:root {
+		font-size: 16px;
+	}
+
+	body {
+		@apply bg-background text-foreground;
+		font-family: 'Kanit', sans-serif;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-bold;
+	}
+
+	h1 {
+		@apply text-7xl;
+	}
+	h2 {
+		@apply text-5xl;
+	}
+	h3 {
+		@apply text-3xl;
+	}
+	h4 {
+		@apply text-2xl;
+	}
+	h5 {
+		@apply text-lg;
+	}
+
+	hr {
+		@apply h-[2px] w-full border-none bg-foreground opacity-10;
+	}
+}
+
+@layer components {
+	.text-link {
+		@apply text-accent-foreground transition hover:opacity-75;
+	}
+}

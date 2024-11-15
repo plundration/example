@@ -1,0 +1,74 @@
+meta {
+  name: Check transaction status
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{BASE_URL}}/transactions/status
+  body: none
+  auth: none
+}
+
+docs {
+  API endpoint for **user frontend**.
+  
+  Returns the transaction if id and gopayId correspond to the same transaction.
+  
+  ## Authorization
+  
+  **Role required**: none
+  
+  ## Request
+  
+  Query parameters:
+  
+  ```json
+  { 
+      id: z.string(),
+      gopayId: z.coerce.number().int().positive(),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Error
+  
+  - 400: Zod validation error
+  - 404: Not found
+  - 500: Internal server error
+  
+  ```json
+  {
+      "message": "... specific error"
+  }
+  ```
+  
+  ### Success
+
+  ```json
+  {
+    "id": "6514cfbc-95bc-4ec6-8f14-157707f02b27",
+    "gopayId": "1",
+    "email": "a@gmail.com",
+    "firstName": "A",
+    "lastName": "A",
+    "price": 1000,
+    "state": "CREATED",
+    "sent": false,
+    "createdAt": "2024-09-27T16:31:30.909Z",
+    "tickets": [
+      {
+        "id": "df9dcc4b-4de5-41f1-a4a4-1fd2f3fae0da",
+        "ticketTypeName": "Basic",
+        "price": 1000,
+        "scannedAt": "2024-09-27T16:31:30.898Z",
+        "createdAt": "2024-09-27T16:31:30.898Z",
+        "eventId": 1655,
+        "transactionId": "6514cfbc-95bc-4ec6-8f14-157707f02b27"
+      }
+    ],
+    "promoId": "0b5094c8-8e7a-463e-a9e4-cee241d97783"
+  }
+  ```
+}

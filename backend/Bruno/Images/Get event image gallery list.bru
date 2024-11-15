@@ -1,0 +1,31 @@
+meta {
+  name: Get event image gallery list
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/images/1/list
+  body: none
+  auth: none
+}
+
+docs {
+  API endpoint for **user frontend**.
+  
+  Returns a list of images for an event's gallery.
+  
+  ## Authorization
+  
+  **Role required**: none
+
+  ## Request
+
+  Event id is specified route parameter.
+  
+  ## Returns
+  
+  ```json
+  ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg"]
+  ```
+}

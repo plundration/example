@@ -1,0 +1,38 @@
+meta {
+  name: Delete event
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{BASE_URL}}/events/1042
+  body: none
+  auth: none
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Deletes specified event by id in route params.
+  
+  ## Authorization
+  
+  **Role required**: modify-all
+
+  ## Request
+
+  Event id is specified route parameter.
+  
+  ## Returns
+  
+  ### Errors
+  
+  - 400 - Zod validation error
+  - 404 - Not Found
+
+  ```json
+  {
+    "message": "... specific error"
+  }
+  ```
+}

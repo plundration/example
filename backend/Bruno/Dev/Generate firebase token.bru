@@ -1,0 +1,16 @@
+meta {
+  name: Generate firebase token
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/generate-token
+  body: none
+  auth: none
+}
+
+script:post-response {
+  let data = res.getBody();
+  bru.setEnvVar("TOKEN",data.token);
+}

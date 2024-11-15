@@ -1,0 +1,69 @@
+meta {
+  name: Create ticket
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL}}/tickets
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "eventId": 911,
+    "ticketTypeName": "Basic"
+  }
+}
+
+
+docs {
+  API endpoint for **admin**.
+  
+  Creates ticket and sends back created entity without having to go through transaction.
+  
+  ## Authorization
+  
+  **Role required**: modify-all
+  
+  ## Request
+  
+  ### Body
+  
+  ```
+  {
+      eventId: z.coerce.number().int().positive(),
+      ticketTypeName: z.string().min(1),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Errors
+  
+  - 400: Zod validation error
+  - 404: Event not found
+  - 500: Internal server error
+  
+  ```json
+  {
+      "message": "... specific error"
+  }
+  ```
+  
+  ### Data
+  
+  Sends back the created ticket.
+  
+  ```json
+  {
+      "eventId": 1625,
+      "ticketTypeName": "Basic",
+      "price": 1000,
+      "scannedAt": null,
+      "id": "0b992814-a86d-4faf-bef5-d3f00b9d4854",
+      "createdAt": "2024-09-27T15:48:46.292Z"
+  }
+  ```
+}

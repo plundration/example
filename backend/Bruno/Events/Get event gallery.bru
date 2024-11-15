@@ -1,0 +1,51 @@
+meta {
+  name: Get event gallery
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{BASE_URL}}/events/gallery
+  body: none
+  auth: none
+}
+
+docs {
+  API endpoint for **user frontend**.
+  
+  Returns an array of events that have gallery enabled and are in the past.
+  
+  ## Authorization
+  
+  **Role required**: none
+  
+  ## Returns
+  
+  ```json
+  [
+    {
+      "id": 1596,
+      "name": "Old Event",
+      "date": "2024-09-19T16:41:07.268Z",
+      "description": "This event is going to be the bomb, there are going to be so many people, you will have a great time!",
+      "address": "123 Fake St",
+      "ticketTypes": [
+        {
+          "name": "Basic",
+          "price": 1000,
+          "capacity": 100,
+          "soldOut": false,
+          "details": [
+            "Wow so good",
+            "You can stand around",
+            "You can dance"
+          ]
+        }
+      ],
+      "sellingOpen": false,
+      "soldOut": false,
+      "galleryEnabled": true
+    }
+  ]
+  ```
+}

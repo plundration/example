@@ -1,0 +1,61 @@
+meta {
+  name: List promos
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/promos
+  body: none
+  auth: none
+}
+
+params:query {
+  ~eventId: 1367
+  ~orderBy: discountPercent
+  ~order: DESC
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Returns a list of promos that match specified criteria.
+  
+  ## Authorization
+  
+  **Role required**: read-all
+  
+  ## Request
+  
+  Query parameters (optional):
+  
+  ```
+  {
+      eventId: z.coerce.number().int().positive(),
+      orderBy: z.enum(['eventId', 'discountPercent', 'createdAt']).default('createdAt'),
+      order: z.enum(['ASC', 'DESC']).default('DESC'),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Error
+  
+  - 400:  Zod validation error
+  - 500:  Internal server error
+  
+  ### Success
+  
+  ```json
+  [
+      {
+          "id": "0960bcf2-8d54-40a3-b5d7-860826eaa21e",
+          "code": "PROMO",
+          "discountPercent": 20,
+          "enabled": true,
+          "createdAt": "2024-09-27T15:01:33.911Z",
+          "eventId": 1605
+      },
+  ]
+  ```
+}

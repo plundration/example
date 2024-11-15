@@ -1,0 +1,16 @@
+:80
+
+reverse_proxy /* localhost:3000
+
+handle_path /api/* { 
+    reverse_proxy localhost:4000 
+}
+
+handle_path /filebrowser/* { 
+reverse_proxy localhost:8080
+}
+
+handle_path /uploads/* {
+    root * /app/uploads
+    file_server
+}

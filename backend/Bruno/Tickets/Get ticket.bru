@@ -1,0 +1,65 @@
+meta {
+  name: Get ticket
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URL}}/tickets/c78c331e-cfef-404b-a27e-adbfe3674e0f
+  body: none
+  auth: none
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Returns specified ticket by id in route.
+  
+  ## Authorization
+  
+  **Role required**: read-all
+  
+  ## Returns
+  
+  ### Error
+  
+  - 404 - Ticket not found
+  - 500 - Internal server error
+  
+  ### Success
+  
+  ```json
+  {
+      "id": "fdb94c6b-a368-4676-9ec2-fdc570eb704b",
+      "ticketTypeName": "Basic",
+      "price": 1000,
+      "scannedAt": null,
+      "createdAt": "2024-09-27T15:45:11.826Z",
+      "event": {
+          "id": 1625,
+          "name": "Newest Event",
+          "date": "2024-09-27T16:45:11.565Z",
+          "description": "This event is going to be the bomb, there are going to be so many people, you will have a great time!",
+          "address": "123 Fake St",
+          "ticketTypes": [
+              {
+                  "name": "Basic",
+                  "price": 1000,
+                  "capacity": 100,
+                  "soldOut": false,
+                  "details": [
+                      "Wow so good",
+                      "You can stand around",
+                      "You can dance"
+                  ]
+              }
+          ],
+          "sellingOpen": true,
+          "soldOut": false,
+          "galleryEnabled": false
+      },
+      "eventId": 1625,
+      "transactionId": "3a837198-8e3f-4f45-9c1e-83053d355531"
+  }
+  ```
+}

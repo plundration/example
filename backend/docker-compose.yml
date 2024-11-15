@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+    backend:
+        container_name: backend
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        restart: always
+        environment:
+            - DB_HOST=localhost
+            - UPLOAD_FOLDER=./uploads
+        volumes:
+            - ./uploads:/app/uploads:z
+        network_mode: host
+        develop:
+            watch:
+                - action: sync
+                  path: ./backend/src
+                  target: /app/src
+
+                - action: rebuild
+                  path: ./backend/package.json
+                  target: /app

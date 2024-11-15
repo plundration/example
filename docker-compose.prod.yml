@@ -1,0 +1,80 @@
+version: "3.9"
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - PUBLIC_API_URL=
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - DB_HOST=postgres
+      - UPLOAD_FOLDER=./uploads
+      - NODE_ENV=production
+    volumes:
+      - uploads:/app/uploads:z
+    ports:
+      - "4000:4000"
+
+  postgres:
+    container_name: postgres
+    image: postgres:16.2
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=
+      - POSTGRES_USER=
+      - POSTGRES_DB=
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  caddy:
+    container_name: caddy
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - uploads:/app/uploads
+
+  filebrowser:
+    container_name: filebrowser
+    image: hurlenko/filebrowser
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - FB_BASEURL=/filebrowser
+    volumes:
+      - uploads:/data:z
+      - filebrowser_config:/config
+
+volumes:
+  pgdata:
+  uploads:
+    external: true
+  caddy_data:
+    external: true
+  caddy_config:
+  filebrowser_config:

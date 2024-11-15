@@ -1,0 +1,41 @@
+meta {
+  name: Get promo
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URL}}/promos/df125f93-cd8d-4fa6-be9e-4f32961c2178
+  body: none
+  auth: none
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Returns specified promo by id in route.
+  
+  ## Authorization
+  
+  **Role required**: read-all
+  
+  ## Returns
+  
+  ### Error
+  
+  - 404 - Promo not found
+  - 500 - Internal server error
+  
+  ### Success
+  
+  ```json
+  {
+      "id": "df125f93-cd8d-4fa6-be9e-4f32961c2178",
+      "code": "PROMO",
+      "discountPercent": 20,
+      "enabled": true,
+      "createdAt": "2024-09-27T15:03:02.857Z",
+      "eventId": 1605
+  }
+  ```
+}

@@ -1,0 +1,58 @@
+meta {
+  name: Check promo code
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URL}}/promos/check
+  body: none
+  auth: none
+}
+
+params:query {
+  eventId: 1
+  promoCode: PROMO
+}
+
+docs {
+  API endpoint for **user frontend**.
+  
+  Returns either the discount percentage of specified code or an error.
+  
+  ## Authorization
+  
+  **Role required**: none
+  
+  ## Request
+  
+  Query parameters:
+  
+  ```json
+  { 
+      promoCode: z.string().min(1),
+      eventId: z.coerce.number().int().positive(), 
+  }
+  ```
+  
+  ## Returns
+  
+  ### Error
+  
+  - 400: Zod validation error
+  - 404: Promo code not found
+  - 403: Promo code disabled
+  
+  ```json
+  {
+      "message": "... specific error"
+  }
+  ```
+  
+  ### Success
+  ```json
+  {
+      "discoutPercentage": 10
+  }
+  ```
+}

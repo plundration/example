@@ -1,0 +1,90 @@
+meta {
+  name: List transactions
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/transactions
+  body: none
+  auth: none
+}
+
+params:query {
+  ~gopayId: 3253097549
+  ~email: pavol.a.komlos@gmail.com
+  ~createdAfter: 2024-07-08T08:31:20.106Z
+  ~createdBefore: 2024-07-08T08:31:20.106Z
+  ~priceMin: 100
+  ~priceMax: 1000
+  ~state: PAID
+  ~sent: true
+  ~orderBy: price
+  ~order: ASC
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Returns a list of transactions that match specified criteria.
+  
+  ## Authorization
+  
+  **Role required**: read-all
+  
+  ## Request
+  
+  Query parameters (optional):
+  
+  ```
+  {
+      gopayId: z.coerce.number().int().positive(),
+      email: z.string().email(),
+      createdAfter: z.string().datetime(),
+      createdBefore: z.string().datetime(),
+      priceMin: z.coerce.number().int().positive(),
+      priceMax: z.coerce.number().int().positive(),
+      state: z.enum(GopayStateArray),
+      sent: z.enum(['true', 'false']).transform((v) => v === 'true'),
+      orderBy: z.enum(['price', 'createdAt']).default('createdAt'),
+      order: z.enum(['ASC', 'DESC']).default('DESC'),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Error
+  
+  - 400:  Zod validation error
+  - 500:  Internal server error
+  
+  ### Success
+
+  ```json
+  [ 
+      {
+          "id": "239ebbb0-9556-4ba7-b86f-46db107815f6",
+          "gopayId": "1960378",
+          "email": "Lavon54@hotmail.com",
+          "firstName": "Tracey",
+          "lastName": "Grady",
+          "price": 4100,
+          "state": "CREATED",
+          "sent": false,
+          "createdAt": "2024-09-27T16:31:30.957Z",
+          "tickets": [
+              {
+              "id": "58f11928-9532-47ba-a94b-ed8c34ec089f",
+              "ticketTypeName": "Basic",
+              "price": 1100,
+              "scannedAt": null,
+              "createdAt": "2024-09-27T16:31:30.944Z",
+              "eventId": 1659,
+              "transactionId": "239ebbb0-9556-4ba7-b86f-46db107815f6"
+              }
+          ],
+          "promoId": null
+      }
+  ]
+  ```
+}

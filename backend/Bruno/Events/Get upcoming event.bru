@@ -1,0 +1,53 @@
+meta {
+  name: Get upcoming event
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/events/upcoming
+  body: none
+  auth: none
+}
+
+docs {
+  API endpoint for **user frontend**.
+  
+  Returns an upcoming event that is either:
+  
+  1. currently selling and not sold out
+  2. not yet selling (if there are none currently selling)
+  3. sold out (if there are none that are still closed)
+  
+  ## Authorization
+  
+  **Role required**: none
+  
+  ## Returns
+  
+  ```json
+  {
+    "id": 1595,
+    "name": "Newest Event",
+    "date": "2024-09-26T17:41:07.031Z",
+    "description": "This event is going to be the bomb, there are going to be so many people, you will have a great time!",
+    "address": "123 Fake St",
+    "ticketTypes": [
+      {
+        "name": "Basic",
+        "price": 1000,
+        "capacity": 100,
+        "soldOut": false,
+        "details": [
+          "Wow so good",
+          "You can stand around",
+          "You can dance"
+        ]
+      }
+    ],
+    "sellingOpen": true,
+    "soldOut": false,
+    "galleryEnabled": false
+  }
+  ```
+}

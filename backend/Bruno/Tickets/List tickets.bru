@@ -1,0 +1,79 @@
+meta {
+  name: List tickets
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/tickets
+  body: none
+  auth: none
+}
+
+params:query {
+  ~eventId: 1042
+  ~ticketTypeName: VIP
+  ~priceMin: 3000
+  ~priceMax: 9000
+  ~scannedAfter: 2024-07-08T08:31:20.106Z
+  ~scannedBefore: 2024-07-10T08:31:20.106Z
+  ~orderBy: createdAt
+  ~order: ASC
+  ~createdAfter: 2024-07-08T08:31:20.106Z
+  ~createdBefore: 2024-07-10T08:31:20.106Z
+  ~scanned: false
+}
+
+docs {
+  API endpoint for **admin**.
+  
+  Returns a list of tickets that match specified criteria.
+  
+  ## Authorization
+  
+  **Role required**: read-all
+  
+  ## Request
+  
+  Query parameters (optional):
+  
+  ```
+  {
+      eventId: z.coerce.number().int().positive(),
+      ticketTypeName: z.string().min(1),
+      priceMin: z.coerce.number().int().positive(),
+      priceMax: z.coerce.number().int().positive(),
+      scanned: z.enum(['true', 'false']).transform((v) => v === 'true'),
+      scannedAfter: z.string().datetime(),
+      scannedBefore: z.string().datetime(),
+      createdAfter: z.string().datetime(),
+      createdBefore: z.string().datetime(),
+      orderBy: z.enum(['scannedAt', 'createdAt']).default('createdAt'),
+      order: z.enum(['ASC', 'DESC']).default('DESC'),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Error
+  
+  - 400:  Zod validation error
+  - 500:  Internal server error
+  
+  ### Success
+  
+  ```json
+  [
+      {
+          "id": "1854f1bc-6428-4754-b895-10f06af3fcf0",
+          "ticketTypeName": "Basic",
+          "price": 1000,
+          "scannedAt": null,
+          "createdAt": "2024-09-27T15:30:32.922Z",
+          "eventId": 1615,
+          "transactionId": "0f6bbe93-2398-4590-96ff-97335f8c918a"
+      },
+  ]
+  ```
+
+}

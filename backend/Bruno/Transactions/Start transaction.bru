@@ -1,0 +1,74 @@
+meta {
+  name: Start transaction
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL}}/transactions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "pavol.a.komlos@gmail.com",
+    "firstName": "pavol",
+    "lastName": "komlos",
+    "eventId": 784,
+    "ticketTypeName": "Basic",
+    "ticketAmount": 1,
+    "newsletter": false
+  }
+}
+
+docs {
+  API endpoint for **user frontend**.
+  
+  Starts transaction, creates tickets, and sends back redirect url.
+  
+  ## Authorization
+  
+  **Role required**: none
+  
+  ## Request
+  
+  ### Body
+  
+  ```
+  {
+      email: z.string().email(),
+      firstName: z.string().min(1),
+      lastName: z.string().min(1),
+      eventId: z.number().int().positive(),
+      ticketTypeName: z.string().min(1),
+      ticketAmount: z.number().int().positive().min(1).max(6),
+      newsletter: z.boolean(),
+      promoCode: z.string(),
+  }
+  ```
+  
+  ## Returns
+  
+  ### Errors
+  
+  - 400: Error in request
+  - 404: Not found
+  - 500: Internal server error
+  
+  ```json
+  {
+      "message": "... specific error"
+  }
+  ```
+  
+  ### Data
+  
+  Sends back redirect url to the transaction page.
+  
+  ```json
+  {
+    "gw_url": "https://redirect_url",
+  }
+  ```
+}
